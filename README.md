@@ -2,7 +2,7 @@
 
 A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction#what-is-adonisjs). This API delivers real-time exchange rates with enhanced performance using in-memory caching, configurable rounding policy and [Zod](https://zod.dev/?id=introduction) for validation.
 
-![postman1](https://github.com/user-attachments/assets/12684627-d281-49c0-b6e5-2919d9089515)
+![postman4](https://github.com/user-attachments/assets/a89b13db-75ca-47cd-b6a6-9e134d410118)
 
 ## Key Features
 
