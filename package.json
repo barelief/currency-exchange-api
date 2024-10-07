@@ -1,6 +1,6 @@
 {
-  "name": "exchange-api",
-  "version": "0.0.0",
+  "name": "currency-exchange-api",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "license": "UNLICENSED",
@@ -8,12 +8,14 @@
     "start": "node bin/server.js",
     "build": "node ace build",
     "dev": "node ace serve --hmr",
+    "dev-static": "node ace serve",
     "test": "node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
   "imports": {
+    "#utils/*": "./app/utils/*.js",
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#models/*": "./app/models/*.js",
@@ -41,7 +43,7 @@
     "@japa/plugin-adonisjs": "^3.0.1",
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.7.22",
-    "@types/node": "^22.5.1",
+    "@types/node": "^22.7.4",
     "eslint": "^9.9.1",
     "hot-hook": "^0.3.0",
     "pino-pretty": "^11.2.2",
@@ -54,8 +56,9 @@
     "@adonisjs/core": "^6.12.1",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^21.2.0",
-    "@vinejs/vine": "^2.1.0",
+    "axios": "^1.7.7",
     "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
     "zod": "^3.23.8"
   },
   "hotHook": {
