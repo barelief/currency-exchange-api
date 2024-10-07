@@ -4,6 +4,22 @@ import { Secret } from '@adonisjs/core/helpers'
 import { defineConfig } from '@adonisjs/core/http'
 
 /**
+ * The list of supported currencies
+ */
+export const SUPPORTED_CURRENCIES = ['USD', 'EUR', 'GBP', 'ILS'] as const
+export type SupportedCurrency = (typeof SUPPORTED_CURRENCIES)[number]
+
+export function isSupportedCurrency(currency: string): currency is SupportedCurrency {
+  return SUPPORTED_CURRENCIES.includes(currency as SupportedCurrency)
+}
+
+/**
+ * Cache config
+ */
+export const cacheTTL = 3600 // not implemented
+export const cacheCapacity = 10
+
+/**
  * The app key is used for encrypting cookies, generating signed URLs,
  * and by the "encryption" module.
  *
