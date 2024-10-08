@@ -18,8 +18,14 @@ export function isSupportedCurrency(currency: string): currency is SupportedCurr
 /**
  * Cache config
  */
-export const cacheTTL = 3600 // not implemented
-export const cacheCapacity = 10
+
+// This formula calculates the total number of ordered currency pairs,
+// considering both directions (e.g., USD/EUR and EUR/USD).
+const ln = SUPPORTED_CURRENCIES.length
+export const cacheCapacity = ln * (ln - 1)
+
+// time for a cache node to expire
+export const cacheTTL = 10000 // 10000 is 10s
 
 /**
  * The app key is used for encrypting cookies, generating signed URLs,

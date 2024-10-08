@@ -1,44 +1,63 @@
 class LRUCacheNode<K, V> {
   key: K
   value: V
+  expiry: number
   prev: LRUCacheNode<K, V> | null = null
   next: LRUCacheNode<K, V> | null = null
 
-  constructor(key: K, value: V) {
+  constructor(key: K, value: V, ttl: number) {
     this.key = key
     this.value = value
+    this.expiry = Date.now() + ttl
   }
 }
 
 export default class LRUCache<K, V> {
   private capacity: number
+  private ttl: number // TTL in milliseconds
   private cache: Map<K, LRUCacheNode<K, V>>
   private head: LRUCacheNode<K, V> | null = null
   private tail: LRUCacheNode<K, V> | null = null
 
-  constructor(capacity: number) {
+  constructor(capacity: number, ttl: number) {
     this.capacity = capacity
+    this.ttl = ttl
     this.cache = new Map()
   }
 
   // Retrieve value and move the accessed node to the head
   get(key: K): V | undefined {
     const node = this.cache.get(key)
-    if (node) {
+    if (node && Date.now() < node.expiry) {
       this.moveToHead(node)
       return node.value
+    } else if (node) {
+      // Node has expired, remove it
+      this.removeNode(node)
+      this.cache.delete(key)
     }
     return undefined
   }
 
   // Add or update the key-value pair
   set(key: K, value: V): void {
+    const currentTime = Date.now()
     if (this.cache.has(key)) {
       const node = this.cache.get(key)!
-      node.value = value
-      this.moveToHead(node)
+      if (currentTime < node.expiry) {
+        node.value = value
+        node.expiry = currentTime + this.ttl
+        this.moveToHead(node)
+      } else {
+        // Node expired, remove and add new node
+        this.removeNode(node)
+        this.cache.delete(key)
+        const newNode = new LRUCacheNode(key, value, this.ttl)
+        this.addToHead(newNode)
+        this.cache.set(key, newNode)
+      }
     } else {
-      const newNode = new LRUCacheNode(key, value)
+      const newNode = new LRUCacheNode(key, value, this.ttl)
       if (this.cache.size >= this.capacity) {
         this.removeTail()
       }
@@ -83,7 +102,10 @@ export default class LRUCache<K, V> {
     }
   }
 
-  // monitoring methods
+  /** 
+    Cache monitoring methods
+  */
+
   public size(): number {
     return this.cache.size
   }
@@ -108,6 +130,7 @@ export default class LRUCache<K, V> {
     return this.tail?.key
   }
 
+  // Returns all keys in the order from most to least recently used
   public getOrderedKeys(): K[] {
     const keys: K[] = []
     let current = this.head
@@ -116,5 +139,37 @@ export default class LRUCache<K, V> {
       current = current.next
     }
     return keys
+  }
+
+  // get all expiration dates in Date() format
+  public getExpiryData(): number[] {
+    const keys: number[] = []
+    let current = this.head
+    while (current) {
+      keys.push(current.expiry)
+      current = current.next
+    }
+    return keys
+  }
+
+  // Returns all keys along with their expiration status and time until expiration
+  public getKeysWithExpirations(): Array<{
+    key: K
+    isExpired: boolean
+    msUntilExpiration: number
+  }> {
+    const keysWithExpirations: Array<{ key: K; isExpired: boolean; msUntilExpiration: number }> = []
+    const now = Date.now()
+    let current = this.head
+    while (current !== null) {
+      const msUntilExpiration = Math.max(0, current.expiry - now)
+      keysWithExpirations.push({
+        key: current.key,
+        isExpired: msUntilExpiration === 0,
+        msUntilExpiration: msUntilExpiration,
+      })
+      current = current.next
+    }
+    return keysWithExpirations
   }
 }

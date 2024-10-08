@@ -2,7 +2,7 @@
 import axios from 'axios'
 import LRUCache from '#utils/lru_cache'
 import { applyRoundingPolicy, RoundingPolicy } from '#utils/rounding_policy'
-import { SupportedCurrency, isSupportedCurrency, cacheCapacity } from '#config/app'
+import { SupportedCurrency, isSupportedCurrency, cacheCapacity, cacheTTL } from '#config/app'
 
 export default class ExchangeRateService {
   private static instance: ExchangeRateService
@@ -10,7 +10,7 @@ export default class ExchangeRateService {
   private requestCount: number
 
   constructor() {
-    this.cache = new LRUCache<string, number>(cacheCapacity)
+    this.cache = new LRUCache<string, number>(cacheCapacity, cacheTTL)
     this.requestCount = 0
   }
 
@@ -97,6 +97,7 @@ export default class ExchangeRateService {
       mostRecentlyCached: this.cache.getMostRecentKey(),
       leastRecentlyCached: this.cache.getLeastRecentKey(),
       cacheOrder: this.cache.getOrderedKeys(),
+      expiryData: this.cache.getKeysWithExpirations(),
     }
   }
 }
