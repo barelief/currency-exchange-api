@@ -31,11 +31,11 @@ A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/p
 │   └── 📄 routes.ts
 ├── 📂 tests
     └── 📂 functional
-        └── 📄 test.spec.ts
+        └── 📄 quote.spec.ts
 ```
 ## Key files
 
-These are custom files built on top of AdonisJS [API starter kit](https://docs.adonisjs.com/guides/getting-started/installation#api-starter-kit))
+These are custom files built on top of AdonisJS [API starter kit](https://docs.adonisjs.com/guides/getting-started/installation#api-starter-kit)
 
 📂 controllers/http
 
