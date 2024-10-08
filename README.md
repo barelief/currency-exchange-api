@@ -2,6 +2,14 @@
 
 A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction#what-is-adonisjs). This API delivers real-time exchange rates with enhanced performance using in-memory caching, configurable rounding policy and [Zod](https://zod.dev/?id=introduction) for validation.
 
+Demo server here: https://minimal-gwyq.onrender.com
+
+Try following `curl` command (or just use Postman) to test: 
+```
+curl -X GET "https://minimal-gwyq.onrender.com/debug?baseCurrency=USD&quoteCurrency=GBP&baseAmount=10000"
+| jq
+```
+
 ![postman4](https://github.com/user-attachments/assets/a89b13db-75ca-47cd-b6a6-9e134d410118)
 
 ## Key Features
@@ -10,6 +18,7 @@ A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/p
 - **Optimized Performance**: Utilizes an LRU caching mechanism for faster and more efficient responses.
 - **Input Validation**: Ensures robust input validation with Zod.
 - **Customizable Rounding**: Configurable rounding policies to suit different business needs.
+- **Rate limiting**: Configurable restrictions on the frequency of API requests to prevent abuse 
 - **Clear Developer Interface**: Easy to extend, maintain, and test. 
 
 ## Project structure 
