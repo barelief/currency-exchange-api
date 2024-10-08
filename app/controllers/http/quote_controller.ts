@@ -22,6 +22,7 @@ export default class QuoteController {
     const validatedPayload = validationResult.data
     const baseCurrency = validatedPayload.baseCurrency as SupportedCurrency
     const quoteCurrency = validatedPayload.quoteCurrency as SupportedCurrency
+    const baseAmount = validatedPayload.baseAmount
 
     try {
       // Fetch exchange rate
@@ -29,7 +30,7 @@ export default class QuoteController {
       const result = await exchangeRateService.getQuote(
         baseCurrency,
         quoteCurrency,
-        validatedPayload.baseAmount,
+        baseAmount,
         debug
       )
       return response.json(result)

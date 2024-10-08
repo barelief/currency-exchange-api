@@ -5,5 +5,5 @@ import { SUPPORTED_CURRENCIES } from '#config/app'
 export const quoteValidationSchema = z.object({
   baseCurrency: z.enum(SUPPORTED_CURRENCIES).transform((currency) => currency.toUpperCase()),
   quoteCurrency: z.enum(SUPPORTED_CURRENCIES).transform((currency) => currency.toUpperCase()),
-  baseAmount: z.number().min(1, { message: 'Base amount must be a positive number' }),
+  baseAmount: z.coerce.number().min(1, { message: 'Base amount must be a positive number' }),
 })
