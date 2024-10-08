@@ -2,6 +2,8 @@
 
 A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction#what-is-adonisjs). This API delivers real-time exchange rates with enhanced performance using in-memory caching, configurable rounding policy and [Zod](https://zod.dev/?id=introduction) for validation.
 
+![postman4](https://github.com/user-attachments/assets/a89b13db-75ca-47cd-b6a6-9e134d410118)
+
 ## Key Features
 
 - **Currency Conversion**: Supports conversions for USD, EUR, GBP, and ILS. Currency list can be extended in separate setup file `config/app.ts`
@@ -122,28 +124,28 @@ GET /debug?baseCurrency=ILS&quoteCurrency=USD&baseAmount=1234
 
 ```json
 {
-    "exchangeRate": 0.262,
-    "quoteAmount": 324,
-    "debugInfo": {
-        "rawQuoteAmount": 323.8845144356955,
-        "roundingPolicy": "roundHalfEven",
-        "responseTime": "612ms",
-        "cached": false,
-        "totalRequests": 4
-    },
-    "cacheInfo": {
-        "size": 4,
-        "capacity": 5,
-        "utilizationPercentage": 80,
-        "mostRecentlyCached": "ILS-USD",
-        "leastRecentlyCached": "EUR-GBP",
-        "cacheOrder": [
-            "ILS-USD",
-            "USD-GBP",
-            "GBP-EUR",
-            "EUR-GBP"
-        ]
-    }
+  "exchangeRate": 0.262,
+  "quoteAmount": 324,
+  "debugInfo": {
+      "rawQuoteAmount": 323.8845144356955,
+      "roundingPolicy": "roundHalfEven",
+      "responseTime": "612ms",
+      "cached": false,
+      "totalRequests": 4
+  },
+  "cacheInfo": {
+      "size": 4,
+      "capacity": 5,
+      "utilizationPercentage": 80,
+      "mostRecentlyCached": "ILS-USD",
+      "leastRecentlyCached": "EUR-GBP",
+      "cacheOrder": [
+          "ILS-USD",
+          "USD-GBP",
+          "GBP-EUR",
+          "EUR-GBP"
+      ]
+  }
 }
 ```
 
