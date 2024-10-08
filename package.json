@@ -48,17 +48,19 @@
     "hot-hook": "^0.3.0",
     "pino-pretty": "^11.2.2",
     "prettier": "^3.3.3",
-    "ts-node-maintained": "^10.9.4",
     "typescript": "~5.5"
   },
   "dependencies": {
     "@adonisjs/auth": "^9.2.3",
     "@adonisjs/core": "^6.12.1",
     "@adonisjs/cors": "^2.2.1",
+    "@adonisjs/limiter": "^2.3.2",
     "@adonisjs/lucid": "^21.2.0",
     "axios": "^1.7.7",
+    "rate-limiter-flexible": "^5.0.3",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2",
+    "ts-node-maintained": "^10.9.4",
     "zod": "^3.23.8"
   },
   "hotHook": {

@@ -8,12 +8,15 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { throttle } from './limiter.js'
 
 // Route to get a quote
-router.get('/quote', async (ctx) => {
-  const { default: QuoteController } = await import('#controllers/http/quote_controller')
-  return new QuoteController().getQuote(ctx)
-})
+router
+  .get('/quote', async (ctx) => {
+    const { default: QuoteController } = await import('#controllers/http/quote_controller')
+    return new QuoteController().getQuote(ctx)
+  })
+  .use(throttle)
 
 // Debug route to get a quote with debug mode enabled
 router.get('/debug', async (ctx) => {
