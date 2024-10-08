@@ -7,6 +7,8 @@ import { defineConfig } from '@adonisjs/core/http'
  * The list of supported currencies
  */
 export const SUPPORTED_CURRENCIES = ['USD', 'EUR', 'GBP', 'ILS'] as const
+
+// [numner] means "get the type of any element of the array"
 export type SupportedCurrency = (typeof SUPPORTED_CURRENCIES)[number]
 
 export function isSupportedCurrency(currency: string): currency is SupportedCurrency {
