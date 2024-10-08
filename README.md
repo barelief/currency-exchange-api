@@ -18,7 +18,7 @@ A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/p
 ├── 📂 app
 │   ├── 📂 controllers
 │   │   └── 📂 http
-│   │       └── 📄 quote_controller.ts
+│   │       └── 📄 quote_controller.ts 
 │   ├── 📂 services
 │   │   └── 📄 exchange_rate_service.ts
 │   └── 📂 utils
@@ -39,17 +39,17 @@ These are custom files built on top of AdonisJS [API starter kit](https://docs.a
 
 📂 controllers/http
 
-- **`quote_controller.ts`**: The main controller for handling `/quote` requests. It validates the request, interacts with the exchange rate service, applies the rounding policy, and leverages the LRU cache for performance.
+- [**`quote_controller.ts`**](app/controllers/http/quote_controller.ts): The main controller for handling `/quote` requests. It validates the request, interacts with the exchange rate service, applies the rounding policy, and leverages the LRU cache for performance.
 
 📂 services/
 
-- **`exchange_rate_service.ts`**: This service handles the communication with the third-party ExchangeRate-API. It fetches the latest exchange rates for the supported currencies.
+- [**`exchange_rate_service.ts`**](app/services/exchange_rate_service.ts): This service handles the communication with the third-party ExchangeRate-API. It fetches the latest exchange rates for the supported currencies.
 
 📂 utils/
 
-- **`lru_cache.ts`**: Implements a LRU Cache to store exchange rates. This cache minimizes external API calls, reducing costs and improving response times.
-- **`rounding_policy.ts`**: Provides utility functions to handle various rounding policies, such as rounding up, down etc.
-- **`quote_validator.ts`**: Uses Zod for validating incoming requests, ensuring that only valid currency codes and amounts are processed.
+- [**`lru_cache.ts`**](app/utils/lru_cache.ts): Implements a LRU Cache to store exchange rates. This cache minimizes external API calls, reducing costs and improving response times.
+- [**`rounding_policy.ts`**](app/utils/rounding_policy.ts): Provides utility functions to handle various rounding policies, such as rounding up, down etc.
+- [**`quote_validator.ts`**](app/utils/quote_validator.ts): Uses Zod for validating incoming requests, ensuring that only valid currency codes and amounts are processed.
 
 ## Quick Start
 
