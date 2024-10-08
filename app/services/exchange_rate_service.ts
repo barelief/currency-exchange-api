@@ -29,7 +29,7 @@ export default class ExchangeRateService {
     roundingPolicy: RoundingPolicy = 'roundHalfEven'
   ) {
     const startTime = Date.now() // Start tracking time
-    // Check if the exchange rate is cached
+
     const { exchangeRate, cached } = await this.getExchangeRate(baseCurrency, quoteCurrency)
     const rawQuoteAmount = baseAmount * exchangeRate
     const quoteAmount = applyRoundingPolicy(rawQuoteAmount, 0, roundingPolicy) // Using 2 decimal places
@@ -39,6 +39,7 @@ export default class ExchangeRateService {
       quoteAmount,
     }
 
+    // add debug response
     if (debug) {
       const responseTime = Date.now() - startTime // Calculate response time in seconds
       this.requestCount++
@@ -56,6 +57,7 @@ export default class ExchangeRateService {
     return response
   }
 
+  // Fetch exchange rate from API
   private async getExchangeRate(
     baseCurrency: SupportedCurrency,
     quoteCurrency: SupportedCurrency

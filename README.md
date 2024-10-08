@@ -10,7 +10,7 @@ A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/p
 - **Customizable Rounding**: Configurable rounding policies to suit different business needs.
 - **Clear Developer Interface**: Easy to extend, maintain, and test. 
 
-## Project structure (on top of AdonisJS [API starter kit](https://docs.adonisjs.com/guides/getting-started/installation#api-starter-kit))
+## Project structure 
 
 ```
 ├── 📂 app
@@ -32,6 +32,8 @@ A currency exchange API built with [AdonisJS](https://docs.adonisjs.com/guides/p
         └── 📄 test.spec.ts
 ```
 ## Key files
+
+These are custom files built on top of AdonisJS [API starter kit](https://docs.adonisjs.com/guides/getting-started/installation#api-starter-kit))
 
 📂 controllers/http
 

@@ -21,6 +21,7 @@ export default class LRUCache<K, V> {
     this.cache = new Map()
   }
 
+  // Retrieve value and move the accessed node to the head
   get(key: K): V | undefined {
     const node = this.cache.get(key)
     if (node) {
@@ -30,6 +31,7 @@ export default class LRUCache<K, V> {
     return undefined
   }
 
+  // Add or update the key-value pair
   set(key: K, value: V): void {
     if (this.cache.has(key)) {
       const node = this.cache.get(key)!
@@ -45,11 +47,13 @@ export default class LRUCache<K, V> {
     }
   }
 
+  // Move a node to the head
   private moveToHead(node: LRUCacheNode<K, V>): void {
     this.removeNode(node)
     this.addToHead(node)
   }
 
+  // Remove a specific node
   private removeNode(node: LRUCacheNode<K, V>): void {
     if (node.prev) node.prev.next = node.next
     if (node.next) node.next.prev = node.prev
@@ -57,6 +61,7 @@ export default class LRUCache<K, V> {
     if (this.tail === node) this.tail = node.prev
   }
 
+  // Add a node to the head of the cache
   private addToHead(node: LRUCacheNode<K, V>): void {
     node.next = this.head
     node.prev = null
@@ -65,6 +70,7 @@ export default class LRUCache<K, V> {
     if (!this.tail) this.tail = node
   }
 
+  // Remove the tail node (least recently used)
   private removeTail(): void {
     if (!this.tail) return
     this.cache.delete(this.tail.key)

@@ -25,9 +25,11 @@ export default class QuoteController {
       })
     }
 
+    // perform transpofrmation if needed. check zod schema
     const validatedPayload = validationResult.data
 
     try {
+      // Fetch exchange rate
       const exchangeRateService = ExchangeRateService.getInstance()
       const result = await exchangeRateService.getQuote(
         validatedPayload.baseCurrency,
