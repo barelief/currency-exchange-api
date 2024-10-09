@@ -6,8 +6,7 @@ Demo server here: https://minimal-gwyq.onrender.com
 
 Try following `curl` command (or just use Postman) to test: 
 ```
-curl -X GET "https://minimal-gwyq.onrender.com/debug?baseCurrency=USD&quoteCurrency=GBP&baseAmount=10000"
-| jq
+curl -X GET "https://minimal-gwyq.onrender.com/debug?baseCurrency=USD&quoteCurrency=GBP&baseAmount=10000" | jq
 ```
 
 ![postman4](https://github.com/user-attachments/assets/a89b13db-75ca-47cd-b6a6-9e134d410118)
