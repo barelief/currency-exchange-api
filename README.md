@@ -9,7 +9,7 @@ Try following `curl` command (or just use Postman) to test:
 curl -X GET "https://minimal-gwyq.onrender.com/debug?baseCurrency=USD&quoteCurrency=GBP&baseAmount=10000" | jq
 ```
 
-![postman4](https://github.com/user-attachments/assets/a89b13db-75ca-47cd-b6a6-9e134d410118)
+![image](https://github.com/user-attachments/assets/d39be580-83a5-44a5-bf9c-27aab2b9b436)
 
 ## Key Features
 
