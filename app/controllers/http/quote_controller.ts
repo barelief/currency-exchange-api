@@ -35,7 +35,9 @@ export default class QuoteController {
       )
       return response.json(result)
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      // Return a 500 status code for server errors
+      console.error('Error fetching quote:', error) // in the future use winston for more structured looging
+      return response.status(500).json({ error: 'Internal Server Error' })
     }
   }
 }
