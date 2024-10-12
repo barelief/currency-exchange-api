@@ -3,6 +3,8 @@ import app from '@adonisjs/core/services/app'
 import { Secret } from '@adonisjs/core/helpers'
 import { defineConfig } from '@adonisjs/core/http'
 
+export const exchangeRateApiUrl = 'https://api.exchangerate-api.com/v4/latest/USD'
+
 /**
  * The list of supported currencies
  */

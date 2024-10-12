@@ -2,7 +2,13 @@
 import axios from 'axios'
 import LRUCache from '#utils/lru_cache'
 import { applyRoundingPolicy, RoundingPolicy } from '#utils/rounding_policy'
-import { SupportedCurrency, isSupportedCurrency, cacheCapacity, cacheTTL } from '#config/app'
+import {
+  SupportedCurrency,
+  isSupportedCurrency,
+  cacheCapacity,
+  cacheTTL,
+  exchangeRateApiUrl,
+} from '#config/app'
 
 export default class ExchangeRateService {
   private static instance: ExchangeRateService
@@ -71,22 +77,33 @@ export default class ExchangeRateService {
       return { exchangeRate: cachedRate, cached: true }
     }
 
-    // Otherwise, fetch from the API
-    const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/USD`)
-    const rates = response.data.rates
+    try {
+      // Otherwise, fetch from the API
+      const response = await axios.get(exchangeRateApiUrl)
+      const rates = response.data.rates
 
-    if (!isSupportedCurrency(baseCurrency) || !isSupportedCurrency(quoteCurrency)) {
-      throw new Error('Unsupported currency')
+      if (!isSupportedCurrency(baseCurrency) || !isSupportedCurrency(quoteCurrency)) {
+        throw new Error('Unsupported currency')
+      }
+
+      const baseRate = baseCurrency === 'USD' ? 1 : rates[baseCurrency]
+      const quoteRate = quoteCurrency === 'USD' ? 1 : rates[quoteCurrency]
+      const exchangeRate = quoteRate / baseRate
+
+      // Cache the fetched exchange rate and return cached status as false
+      this.cache.set(cacheKey, exchangeRate)
+
+      return { exchangeRate, cached: false }
+    } catch (error) {
+      const errorCode = 'FETCH_RATE_ERROR'
+      console.error(`[${errorCode}] Error fetching exchange rate:`, error)
+
+      // Don'tsend the error message from the third-party provider,
+      // return a generic error message
+      throw new Error(
+        `Failed to fetch exchange rate. Please try again later. (Error code: ${errorCode})`
+      )
     }
-
-    const baseRate = baseCurrency === 'USD' ? 1 : rates[baseCurrency]
-    const quoteRate = quoteCurrency === 'USD' ? 1 : rates[quoteCurrency]
-    const exchangeRate = quoteRate / baseRate
-
-    // Cache the fetched exchange rate and return cached status as false
-    this.cache.set(cacheKey, exchangeRate)
-
-    return { exchangeRate, cached: false }
   }
 
   public getCacheStats() {
